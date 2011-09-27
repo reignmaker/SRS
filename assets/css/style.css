@@ -1,0 +1,91 @@
+/*
+.topbar-inner, .topbar .fill {
+    background-color: #31B310;
+    background-image: -moz-linear-gradient(center top , #2D9C11, #31B310);
+}*/
+caption{
+	font-size:18px;
+	padding:10px;
+}
+.mtop10{
+	margin-top: 10px;
+}
+.mtop60{
+	margin-top: 60px;
+}
+.mauto{
+	margin: auto;
+}
+.m200auto{
+	margin: 200px auto;
+}
+
+.row{
+	margin-left: 0;
+}
+
+@font-face{ 
+	font-family: 'WebSymbolsRegular';
+	src: url('../fonts/websymbols-regular-webfont.eot');
+	src: url('../fonts/websymbols-regular-webfont.eot?#iefix') format('embedded-opentype'),
+	     url('../fonts/websymbols-regular-webfont.woff') format('woff'),
+	     url('../fonts/websymbols-regular-webfont.ttf') format('truetype'),
+	     url('../fonts/websymbols-regular-webfont.svg#WebSymbolsRegular') format('svg');
+}
+.websymbol{
+	font-family: WebSymbolsRegular;
+}
+.addbtn{
+	color:green;
+}
+.updbtn{
+	/*color:green;*/
+}
+.delbtn{
+	color:red;
+}
+a.addbtn, a.updbtn, a.delbtn{
+	font-size:24px;
+	text-decoration: none;
+}
+.content{
+	position: relative;
+	overflow: hidden;
+	min-height:300px;
+}
+.wrapper{
+}
+.modal.popup{
+	left: 25%;
+	top: 35%;
+	width: 400px;
+
+}
+	.modal.popup input[type='text']{
+		height:24px;
+		width: 150px;
+		margin:0 20px;
+	}
+	.modal.popup label{
+		padding:3px;
+		
+	}
+.success h3{
+	color:#fff;
+}
+#login{
+	height: 600px;
+
+}
+	#login div{
+		width:270px;
+		height: 200px;
+		position: relative;
+	}
+
+.modal.login{
+	width: 470px;
+}
+.modal.login label{
+	padding:6px;
+}
