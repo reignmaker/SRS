@@ -28,6 +28,15 @@
 						</ul>
 					</li>
 				</ul>
+				<?php if ($user): ?>
+					<div id="user">
+						<p class="name"><?php echo $user['name']; ?></p>
+						<?php if ($user['permission'] == 'manage'): ?>
+							<?php echo anchor('logout','Выход','title="Завершить сессию."'); ?>
+						<?php endif ?>
+					</div>
+					
+				<?php endif ?>
 			</div>
 		</div>
 	</div>
