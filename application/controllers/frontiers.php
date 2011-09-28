@@ -123,11 +123,10 @@ class Frontiers extends CI_Controller{
 			}
 		}
 		
-		
+		$data['panel'] = array('user' => $this->user->user,);
 		$data['partial'] = 'partials/frontiers';
 		$this->load->view('template',$data);
-		$this->session->set_userdata('permission','manage');
-		/*echo var_dump($this->session->all_userdata());*/
+		
 	}
 
 	public function actions(){
