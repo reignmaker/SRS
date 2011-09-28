@@ -3,20 +3,23 @@
 class Home extends CI_Controller{
 	
 
-	public function __construct()
+	function __construct()
     {
     	parent::__construct();
 		$this->load->model('login_model');
-
     }
 
 
-	public function Index(){
-		$data['partial'] = 'partials/login';
+	function Index(){
+		if ($this->session->userdata('permission') != 'manage') {
+			$data['partial'] = 'partials/login';
+			
+		}
+		$data['panel'] = array('user' => $this->user->user,);
 		$this->load->view('template',$data);
 	}
 
-	public function Login(){
+	function Login(){
 		$user = $this->login_model->verify_user($this->input->post('name'),sha1($this->input->post('pwd')))->result();
 		if($user){
 			$this->session->set_userdata(array(
@@ -26,13 +29,10 @@ class Home extends CI_Controller{
 			
 			var_dump($this->session->all_userdata());
 		}
-		else {
-				$this->session->set_userdata(array(
-					'name' => 'guest',
-					'permission' => 'read',
-				));
-				var_dump($this->session->all_userdata());
-			}	
-				
+			
+	}
+	function Logout(){
+		$this->session->unset_userdata(array('name' =>'','permission'=>'',));
+		redirect(base_url());
 	}
 }
