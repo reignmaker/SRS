@@ -2,10 +2,12 @@
 
 class Students extends CI_Controller{
 	
+
 	public function __construct()
     {
     	parent::__construct();
 		$this->load->model('students_model');
+		
 
     }
 	public function index(){
@@ -38,9 +40,11 @@ class Students extends CI_Controller{
 				'default' => 'Любая специальность',
 				),
 		);
+		$data['panel'] = array('user' => $this->user->user,);
 		$data['title'] = 'Список студентов';
 		$data['partial'] = 'partials/students';
 		$this->load->view('template',$data);
+		var_dump($data['panel']);
 	}
 	
 	
@@ -73,7 +77,7 @@ class Students extends CI_Controller{
 			'course' => $this->input->post('course')
 		);
 		$this->students_model->add_student($data);
-		redirect('students/add_student','refresh');
+		redirect('students/add_student');
 		echo "Студент ". $data['fname']. "добавлен в базу";
 		
 	}
@@ -105,6 +109,12 @@ class Students extends CI_Controller{
 		$this->output->set_header("Content-Type: text/json; charset=utf-8");
 
 		echo(cyr_json($students));
+	}
+
+
+	function view($stid){
+		$data['student_subjects'] = $this->students_model->view($stid);
+		var_dump($data['student_subjects']->result());
 	}
 }
 
