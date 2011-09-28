@@ -89,3 +89,15 @@ a.addbtn, a.updbtn, a.delbtn{
 .modal.login label{
 	padding:6px;
 }
+
+#user{
+	float: right;
+	margin: 10px 0;
+	color:#FFF;
+}
+	#user p{
+		margin: 0 5px;
+		float: left;
+		line-height: 18px;
+
+	}
