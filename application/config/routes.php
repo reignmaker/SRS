@@ -41,6 +41,7 @@
 $route['default_controller'] = "home";
 $route['404_override'] = '';
 $route['students/students.json'] = 'students/ext';
+$route['logout'] = 'home/logout';
 
 
 /* End of file routes.php */
