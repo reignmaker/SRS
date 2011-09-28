@@ -6,7 +6,7 @@ class Subjects extends CI_Controller{
     {
     	parent::__construct();
 		$this->load->model('subjects_model');
-
+		$this->user->check_permission();
     }
 	public function index(){
 		$condition = array(
@@ -49,6 +49,7 @@ class Subjects extends CI_Controller{
 				),
 		);
 		$data['title'] = 'Список предметов';
+		$data['panel'] = array('user' => $this->user->user,);
 		$data['partial'] = 'partials/subjects';
 		$this->load->view('template',$data);
 	}
@@ -75,6 +76,7 @@ class Subjects extends CI_Controller{
 			'2' => '2',
 			),);
 		$data['title'] = 'Добавить предмет';
+		$data['panel'] = array('user' => $this->user->user,);
 		$data['partial'] = 'partials/add_subject';
 		$this->load->view('template',$data);
 	}
@@ -89,6 +91,7 @@ class Subjects extends CI_Controller{
 		
 	}
 	public function view($id){
+		$data['panel'] = array('user' => $this->user->user,);
 		$data['subject'] = $this->subjects_model->view($id);
 		$data['partial'] = 'partials/view_subject';
 		$this->load->view('template',$data);
