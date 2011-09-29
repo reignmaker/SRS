@@ -26,8 +26,7 @@ class Home extends CI_Controller{
 					'name' => $user[0]->name,
 					'permission' => $user[0]->permission,
 			));
-			
-			var_dump($this->session->all_userdata());
+			redirect(base_url());
 		}
 			
 	}
