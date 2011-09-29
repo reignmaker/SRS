@@ -23,7 +23,7 @@
 			
 			<div class="span5">
 			<?php echo form_label('Период:','period');?>
-			<?php echo form_dropdown('period',$options['period']['options'],$options['period']['selected']?$options['period']['selected']:$options['period']['default'],'id=period');?>
+			<?php echo form_multiselect('period[]',$options['period']['options'],$options['period']['selected']?$options['period']['selected']:$options['period']['default'],'id=period');?>
 			</div>
 		</div>
 	

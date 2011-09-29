@@ -19,7 +19,11 @@ class Students_model extends CI_Model{
 		$students = $this->db->get();
 		return $students;
 	}
-	
+	function get_student($stid){
+		$this->db->select('fname, spec, course')->from('students')->where('id',$stid);
+		$q = $this->db->get()->row();
+		return $q;
+	}
 	function add_student($data){
 		
 		$this->db->insert('students',$data);
@@ -47,4 +51,10 @@ class Students_model extends CI_Model{
 		$q = $this->db->get();
 		return $q;
 	}
+	function get_course($stid){
+		$this->db->select('course')->from('students')->where('id',$stid);
+		$q = $this->db->get()->result_array();
+		return $q[0]['course'];
+	}
+
 }
