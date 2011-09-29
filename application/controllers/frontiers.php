@@ -55,20 +55,18 @@ class Frontiers extends CI_Controller{
 			'period' => array(
 				'options' => array(
 					'ANY' => 'Любой период',
-					'1' => 'Первый модуль',
-					'2' => 'Первая рубежка',
-					'3' => 'Второй модуль',
-					'4' => 'Вторая рубежка',
-					'5' => 'Третий модуль',
-					'6' => 'Только модули',
-					'7' => 'Только рубежки',
+					'cs_first' => 'Первый модуль',
+					'fr_first' => 'Первая рубежка',
+					'cs_second' => 'Второй модуль',
+					'fr_second' => 'Вторая рубежка',
+					'cs_third' => 'Третий модуль',
 				),
 				'selected' => $this->input->post('period'),
 				'default' => 'Любой период',
 			),
 		);
 
-		$data['caption'][]= ($this->input->post('course')) ?  $this->input->post('course'). ' курс':"Любой курс";
+		$data['caption'][] = ($this->input->post('course')) ?  $this->input->post('course'). ' курс':"Любой курс";
 		$data['caption'][] = ($this->input->post('subject')) ?  $options[$this->input->post('subject')]:"Любой предмет";
 	
 		$q = $this->frontiers_model->get_frontiers($condition);
