@@ -58,7 +58,24 @@ if(! function_exists('get_semester_n')){
 
 }
 
+if(! function_exists('translate_term')){
 
+	function translate_term($term){
+		switch ($term) {
+			case 'BIT':
+				return "ПИЭ";
+				break;
+			case 'PR':
+				return "СО";
+				break;
+			default:
+				
+				break;
+		}
+		 
+	}
+
+}
 
 
 
