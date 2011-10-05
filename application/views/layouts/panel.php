@@ -30,7 +30,7 @@
 				</ul>
 				<?php if ($user): ?>
 					<div id="user">
-						<p class="name"><?php echo $user['name']; ?></p>
+						<p class="name"><span class="label success"><?php echo $user['name']; ?></p></span>
 						<?php if ($user['permission'] == 'manage'): ?>
 							<?php echo anchor('logout','Выход','title="Завершить сессию."'); ?>
 						<?php endif ?>
