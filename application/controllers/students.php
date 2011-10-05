@@ -17,7 +17,16 @@ class Students extends CI_Controller{
 			'course' => $this->input->post('course')!='0' ? $this->input->post('course'): '',
 			);
 		
-		$data['students'] = $this->students_model->get_students($condition);
+		$q = $this->students_model->get_students($condition);
+		$i = 0;
+		foreach ($q->result() as $student) {
+			$data['students'][$i]['name'] = anchor('students/view/'.$student->id, $student->fname);
+			$data['students'][$i]['spec'] = translate_term($student->spec);
+			$data['students'][$i]['course'] = $student->course;
+			$i++;
+		}
+
+
 		$data['options'] =  array(
 			'course' => array(
 				'options' => array(
@@ -73,7 +82,20 @@ class Students extends CI_Controller{
 	}
 	function view($stid){
 		$data['student'] = $this->students_model->get_student($stid);
-		$data['student_subjects'] = $this->students_model->view($stid);
+		$q = $this->students_model->view($stid);
+		$i = 0;
+		foreach ($q->result() as $subj) {
+			
+			$data['student_subjects'][$i]['subj'] = $subj->name;
+			$data['student_subjects'][$i]['spec'] = translate_term($subj->spec);
+			$data['student_subjects'][$i]['1'] = $subj->cs_first;
+			$data['student_subjects'][$i]['2'] = $subj->fr_first;
+			$data['student_subjects'][$i]['3'] = $subj->cs_second;
+			$data['student_subjects'][$i]['4'] = $subj->fr_second;
+			$data['student_subjects'][$i]['5'] = $subj->cs_third;
+			$i++;
+		}
+
 		$data['options'] = array(
 				'course' => array(
 					'options' => array(
