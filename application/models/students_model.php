@@ -11,7 +11,7 @@ class Students_model extends CI_Model{
 			}		
 		}
 		
-		$this->db->select('fname, spec, course')
+		$this->db->select('id, fname, spec, course')
 				 ->from('students');
 				 if($cond){
 				 	$this->db->where($cond);
