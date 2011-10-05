@@ -29,7 +29,7 @@
 	<?php 
 		$tmpl = array ( 'table_open'  => '<table class="zebra-striped mtop10">' );
 		$this->table->set_template($tmpl);
-		$this->table->set_heading('Первый модуль', 'Первая рубежка', 'Второй модуль','Вторая рубежка','Третий модуль','Предмет','Специальность');
+		$this->table->set_heading('Предмет','Специальность','Первый модуль', 'Первая рубежка', 'Второй модуль','Вторая рубежка','Третий модуль');
 		echo $this->table->generate($student_subjects);
 	?>
 </div>
