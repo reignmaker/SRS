@@ -27,6 +27,8 @@ class Home extends CI_Controller{
 					'permission' => $user[0]->permission,
 			));
 			redirect(base_url());
+		}else {
+			echo "Неправильный пароль!";
 		}
 			
 	}
