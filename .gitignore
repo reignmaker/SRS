@@ -1,5 +1,7 @@
 
 /system/
 /.git/
-BRS.*
-brs.*
+BRS.clpprj
+BRS.komodoproject
+brs.sublime-project
+brs.sublime-workspace
