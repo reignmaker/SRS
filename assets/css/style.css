@@ -24,14 +24,14 @@ caption{
 	margin-left: 0;
 }
 
-@font-face{ 
+/*@font-face{ 
 	font-family: 'WebSymbolsRegular';
 	src: url('../fonts/websymbols-regular-webfont.eot');
 	src: url('../fonts/websymbols-regular-webfont.eot?#iefix') format('embedded-opentype'),
 	     url('../fonts/websymbols-regular-webfont.woff') format('woff'),
 	     url('../fonts/websymbols-regular-webfont.ttf') format('truetype'),
 	     url('../fonts/websymbols-regular-webfont.svg#WebSymbolsRegular') format('svg');
-}
+}*/
 .websymbol{
 	font-family: WebSymbolsRegular;
 }
@@ -89,6 +89,11 @@ a.addbtn, a.updbtn, a.delbtn{
 .modal.login label{
 	padding:6px;
 }
+.modal .close {
+	left:95%;
+	top: 3%;
+	position: absolute;
+}
 
 #user{
 	float: right;
@@ -100,4 +105,20 @@ a.addbtn, a.updbtn, a.delbtn{
 		float: left;
 		line-height: 18px;
 
+	}
+
+/* 	student	*/
+
+.well.student-info{
+	padding: 19px 37px 19px 0;
+}
+.student-info{
+	height:120px;
+	top:45px;
+}
+	.student-info li{
+		list-style: none;
+	}
+	.student-info li span{
+		font-weight: bold;
 	}

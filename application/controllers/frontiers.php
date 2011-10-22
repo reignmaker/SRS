@@ -24,7 +24,6 @@ class Frontiers extends CI_Controller{
 		foreach ($opts->result() as $row) {	
 			$options[$row->id] =  $row->name;
 		}
-		
 		$data['options'] =  array(
 			'course' => array(
 				'options' => array(
@@ -54,39 +53,39 @@ class Frontiers extends CI_Controller{
 			),
 			'period' => array(
 				'options' => array(
-					'ANY' => 'Любой период',
-					'cs_first' => 'Первый модуль',
-					'fr_first' => 'Первая рубежка',
-					'cs_second' => 'Второй модуль',
-					'fr_second' => 'Вторая рубежка',
-					'cs_third' => 'Третий модуль',
+					'ANY' => 'Все',
+					'cs_first' => 'Текущие I',
+					'fr_first' => 'Рубежка I',
+					'cs_second' => 'Текущие II',
+					'fr_second' => 'Рубежка II',
+					'cs_third' => 'Текущие III',
 				),
 				'selected' => $this->input->post('period'),
-				'default' => 'Любой период',
+				'default' => 'Все',
 			),
 		);
 
 		$data['caption'][] = ($this->input->post('course')) ?  $this->input->post('course'). ' курс':"Любой курс";
 		$data['caption'][] = ($this->input->post('subject')) ?  $options[$this->input->post('subject')]:"Любой предмет";
-	
+		if($condition['period'] OR $condition['spec'] OR $condition['course']){
+			
 		$q = $this->frontiers_model->get_frontiers($condition);
 		$i = 0;
-		$data['theading'] = array();
 		foreach ($q->result() as $row) {
 				if (isset($row->fname)) {$data['frontiers'][$i]['name'] = array(
-					'data'=>$row->fname. '<input type="hidden" value="'.$row->sbid.'">',
+					'data'=>anchor('students/view/'.$row->id, $row->fname). '<input type="hidden" value="'.$row->sbid.'" name="'.$row->name.'">',
 					'class'=>'name','id'=>$row->id);}
-				if (isset($row->cs_first)) {$data['frontiers'][$i]['cs_f'] = array('data'=>$row->cs_first,'class'=>'mark','rel'=>'cs_first');}
-				if (isset($row->fr_first)) {$data['frontiers'][$i]['fr_f'] = array('data'=>$row->fr_first,'class'=>'mark','rel'=>'fr_first');}
-				if (isset($row->cs_second)) {$data['frontiers'][$i]['cs_s'] = array('data'=>$row->cs_second,'class'=>'mark','rel'=>'cs_second');}
-				if (isset($row->fr_second)) {$data['frontiers'][$i]['fr_s'] = array('data'=>$row->fr_second,'class'=>'mark','rel'=>'fr_second');}
-				if (isset($row->cs_third)) {$data['frontiers'][$i]['cs_t'] = array('data'=>$row->cs_third,'class'=>'mark','rel'=>'cs_third');}
-				$data['frontiers'][$i]['mng_mark'] ='
-				<a href="'.base_url().'index.php/frontiers/add_mark/'.$row->id.'/'.$row->sbid.'" class = "websymbol addbtn" title = "Поставить">+</a>
-				<a href="'.base_url().'index.php/frontiers/upd_mark/'.$row->id.'/'.$row->sbid.'" class = "websymbol updbtn" title = "Изменить">*</a>
-				<a href="'.base_url().'index.php/frontiers/del_mark/'.$row->id.'/'.$row->sbid.'" class = "websymbol delbtn" title = "Удалить">×</a>';
+				$sum = 0;			
+				if (isset($row->cs_first)) {$data['frontiers'][$i]['cs_f'] = array('data'=>$row->cs_first,'class'=>'mark','rel'=>'cs_first'); $sum += $row->cs_first <0? 0:$row->cs_first;}
+				if (isset($row->fr_first)) {$data['frontiers'][$i]['fr_f'] = array('data'=>$row->fr_first,'class'=>'mark','rel'=>'fr_first'); $sum += $row->fr_first <0? 0:$row->fr_first;}
+				if (isset($row->cs_second)) {$data['frontiers'][$i]['cs_s'] = array('data'=>$row->cs_second,'class'=>'mark','rel'=>'cs_second'); $sum += $row->cs_second <0? 0:$row->cs_second;}
+				if (isset($row->fr_second)) {$data['frontiers'][$i]['fr_s'] = array('data'=>$row->fr_second,'class'=>'mark','rel'=>'fr_second'); $sum += $row->fr_second <0? 0:$row->fr_second;}
+				if (isset($row->cs_third)) {$data['frontiers'][$i]['cs_t'] = array('data'=>$row->cs_third,'class'=>'mark','rel'=>'cs_third'); $sum += $row->cs_third <0? 0:$row->cs_third;}
+				$data['frontiers'][$i]['sum'] = array('data' => $sum, 'class'=>'summ');
 				$i++;
 		}
+		}
+		$data['theading'] = array();
 		if (isset($data['frontiers'])) {
 			foreach ($data['frontiers'][0] as $key => $value) {
 			switch ($key) {
@@ -97,22 +96,22 @@ class Frontiers extends CI_Controller{
 					$data['theading'][] = 'Имя';	
 					break;
 				case 'cs_f':
-					$data['theading'][] = 'Первый модуль';	
+					$data['theading'][] = 'Текущие I';	
 					break;
 				case 'fr_f':
-					$data['theading'][] = 'Первая рубежка';	
+					$data['theading'][] = 'Рубежка I';	
 					break;
 				case 'cs_s':
-					$data['theading'][] = 'Второй модуль';	
+					$data['theading'][] = 'Текущие II';	
 					break;
 				case 'fr_s':
-					$data['theading'][] = 'Вторая рубежка';	
+					$data['theading'][] = 'Рубежка II';	
 					break;
 				case 'cs_t':
-					$data['theading'][] = 'Третий модуль';	
+					$data['theading'][] = 'Текущие III';	
 					break;
-				case 'mng_mark':
-					$data['theading'][] = 'Изменить баллы';	
+				case 'sum':
+					$data['theading'][] = 'Сумма';	
 					break;
 				default:
 					break;

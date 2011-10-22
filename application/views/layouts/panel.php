@@ -21,10 +21,16 @@
 						</ul>
 					</li>
 					<li class="dropdown" data-dropdown="dropdown">
+						<a href="#" class="dropdown-toggle">Преподаватели</a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo base_url(); ?>index.php/teachers">Список преподавателей</a></li>
+							<li><a href="<?php echo base_url(); ?>index.php/teachers/add_teacher">Добавить преподавателя</a></li>
+						</ul>
+					</li>
+					<li class="dropdown" data-dropdown="dropdown">
 						<a href="#" class="dropdown-toggle">Баллы</a>
 						<ul class="dropdown-menu">
 							<li><a href="<?php echo base_url(); ?>index.php/frontiers">Просмотр баллов</a></li>
-							<li><a href="<?php echo base_url(); ?>index.php/frontiers/add_mark">Поставить балл</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -35,7 +41,6 @@
 							<?php echo anchor('logout','Выход','title="Завершить сессию."'); ?>
 						<?php endif ?>
 					</div>
-					
 				<?php endif ?>
 			</div>
 		</div>

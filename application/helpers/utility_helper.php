@@ -1,6 +1,34 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
+if(! function_exists('get_semester_n')){
+	
+	function get_semester_n($course,$semester = 1){
+		return ($course - 1) * 2 + $semester;
+		 
+	}
+
+}
+
+if(! function_exists('translate_term')){
+
+	function translate_term($term){
+		switch ($term) {
+			case 'BIT':
+				return "ПИЭ";
+				break;
+			case 'PR':
+				return "СО";
+				break;
+			default:
+				
+				break;
+		}
+		 
+	}
+
+}
+
 if(! function_exists('cyr_json')){
 	
 	function cyr_json($data){
@@ -46,35 +74,6 @@ if(! function_exists('cyr_json')){
 		$output = strtr(json_encode($data),$utf2win);
 		return $output;
 	}
-}
-
-
-if(! function_exists('get_semester_n')){
-	
-	function get_semester_n($course,$semester = 1){
-		return ($course - 1) * 2 + $semester;
-		 
-	}
-
-}
-
-if(! function_exists('translate_term')){
-
-	function translate_term($term){
-		switch ($term) {
-			case 'BIT':
-				return "ПИЭ";
-				break;
-			case 'PR':
-				return "СО";
-				break;
-			default:
-				
-				break;
-		}
-		 
-	}
-
 }
 
 

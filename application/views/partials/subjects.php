@@ -1,5 +1,5 @@
-<div class="container">
-	<div id="filter" class = "row mtop60">
+<div class="container form-stacked">
+	<div id="filter" class = "row">
 		<?php echo form_open('subjects'); ?>
 		<div class="row">
 			<div class = "span5">
@@ -24,13 +24,20 @@
 			<?php echo form_submit('show','Показать','class = "btn primary mtop10"');?>
 			<?php echo form_close();?>
 		</div>
-		
+	</div>
+	<?php if ($subjects): ?>
+			
 		<?php 
 			$tmpl = array ( 'table_open'  => '<table class="zebra-striped mtop10">' );
 			$this->table->set_template($tmpl);
 			$this->table->set_heading('Наименование', 'Срециальность','Курс','Семестр' );
 			echo $this->table->generate($subjects);
 		?>
-	</div>
+		<?php else: ?>
+			<div class="span8  offset4 alert-message block-message warning fade in" data-alert="alert">
+			        <a href="#" class="close">×</a>
+			        <p class="offset2"><strong><?php echo 'Данных нет'; ?></strong></p>
+		    </div>
+	<?php endif ?>
 </div>
 	

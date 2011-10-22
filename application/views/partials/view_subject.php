@@ -1,36 +1,31 @@
 <div class="container">
-	<div id="filter" class = "row mtop60">
-		<?php echo form_open('subjects'); ?>
-		<div class="row">
-			<div class = "span5">
-				<?php echo form_label('Курс:','course'); ?>
-				<?php echo form_dropdown('course',$options['course']['options'],$options['course']['selected']?$options['course']['selected']:$options['course']['default'],'id=course');?>
-			</div>
+	<div id="filter" class = "row">
+		<div class="offset3">
+			<?php if ($subject): ?>
+				<h3 class="offset2"><?php echo $subject[0]->name; ?></h3>
+			<?php endif ?>
+		</div>
+		<?php if (isset($subject_students)): ?>
 			
-			<div class = "span5">
-				<?php echo form_label('Семестр:','semester');?>
-				<?php echo form_dropdown('semester',$options['semester']['options'],$options['semester']['selected']?$options['semester']['selected']:$options['semester']['default'],'id=semester');?>
-			</div class = "span5">
-		</div>
-
-		<div class="row">
-			<div class = "span5">
-				<?php echo form_label('Специальность:','spec');?>
-				<?php echo form_dropdown('spec',$options['spec']['options'],$options['spec']['selected']?$options['spec']['selected']:$options['spec']['default'],'id=spec');?>
-			</div>
-		</div>
-
-		<div class = "span">
-			<?php echo form_submit('show','Показать','class = "btn primary mtop10"');?>
-			<?php echo form_close();?>
-		</div>
-		
 		<?php 
 			$tmpl = array ( 'table_open'  => '<table class="zebra-striped mtop10">' );
 			$this->table->set_template($tmpl);
-			/*$this->table->set_heading('Наименование', 'Срециальность','Курс','Семестр' );*/
-			echo $this->table->generate($subject);
+			$this->table->set_heading('Студент', 'Первый модуль', 'Первая рубежка', 'Второй модуль','Вторая рубежка','Третий модуль','Сумма');
+			echo $this->table->generate($subject_students);
 		?>
+		<?php if ($teacher): ?>
+			<div class="span5 offset12">
+				<span>Преподаватель: <h4><?php echo $teacher[0]->fname; ?></h4></span>
+			</div>
+		<?php endif ?>
+		<?php else: ?>
+			
+				<div class="alert-message warning mtop10 span8 offset4 fade in" data-alert="alert">
+					<a class="close" href="#">×</a>
+	    			<p class="offset1"><strong>Данных нет. </strong></p>
+    			</div>
+		
+		<?php endif ?>
 	</div>
 </div>
 	

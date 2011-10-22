@@ -1,18 +1,20 @@
 <div class="container">
-	<div id="filter" class = "row mtop60">
+	<div id="filter" class = "row form-stacked">
 		
 	<?php echo form_open('frontiers');?>
 	
 		<div class="row">
+			
+			<div class="span5">
+			<?php echo form_label('Специальность:','spec');?>
+			<?php echo form_dropdown('spec',$options['spec']['options'],$options['spec']['selected']?$options['spec']['selected']:$options['spec']['default'],'id=spec');?>
+			</div>
+
 			<div class="span5">
 			<?php echo form_label('Курс:','course');?>
 			<?php echo form_dropdown('course',$options['course']['options'],$options['course']['selected']?$options['course']['selected']:$options['course']['default'],'id=course');?>
 			</div>
 				
-			<div class="span5">
-			<?php echo form_label('Специальность:','spec');?>
-			<?php echo form_dropdown('spec',$options['spec']['options'],$options['spec']['selected']?$options['spec']['selected']:$options['spec']['default'],'id=spec');?>
-			</div>
 		</div>
 	
 		<div class="row">
@@ -33,29 +35,21 @@
 		<?php echo form_close();?>	
 	</div>
 	<div class = "row content">
+	<?php if (isset($frontiers)): ?>
+		<?php 
+			$tmpl = array ( 'table_open'  => '<table class="zebra-striped mtop10">' );
+			$this->table->set_template($tmpl);
+			if (isset($theading))$this->table->set_heading($theading);
+			$this->table->set_caption(implode(', ',$caption));
+			echo $this->table->generate($frontiers);	
+		?>
+	<?php else: ?>
+      	<div class="alert-message warning mtop10 span8 offset4 fade in" data-alert="alert">
+				<a class="close" href="#">×</a>
+    			<p class="offset1"><strong>Данных нет. </strong>Попробуйте изменить фильтр.</p>
+    	</div>
+	<?php endif ?>
 	
-	<?php 
-	echo form_open('frontiers/actions');
-	$tmpl = array ( 'table_open'  => '<table class="zebra-striped mtop10">' );
-	$this->table->set_template($tmpl);
-	$this->table->set_heading($theading);
-	$this->table->set_caption(implode(', ',$caption));
-	if (isset($frontiers)){
-/*		foreach ($frontiers as $key => $value) {
-			$cell = array('data' => $value, 'class' => $key);
-			echo var_dump($cell);
-			$this->table->add_row($cell);
-		}*/
-	echo $this->table->generate($frontiers);
-	echo form_submit('action','Выполнить');
-	echo form_close();
-	}
-	else {
-		echo "<h2 class = 'offset5'>Данных нет</h2>";
-	}
-
-	/*echo "<pre>". cyr_json($frontiers). "</pre>";*/
-	?>
 	
 	</div>
 </div>
@@ -66,28 +60,33 @@ jQuery(function(){
 		var obj = $(this);
 		var thIndex = $('.content table th')[$(this).index()];
 		var moduleName = $(thIndex).html();
-		var subjName = $('#subject option:selected').html();
-		var name = $(this).parent().find('.name').html();
-		var id = $(this).parent().find('.name').attr('id');
-		var mark = $(this).html();
+		var subjName = $(this).parent().find('input').attr('name');
+		var name = obj.parent().find('.name').html();
+		var id = obj.parent().find('.name').attr('id');
+		var mark = obj.html();
+		var summOld = parseInt(obj.parent().find('.summ').html())
+			delta = 0;
 		var template = '<div style="position: absolute;  margin: auto auto; z-index: 1" class="modal popup"><div class="modal-header"><p>'+ name +', '+subjName+'</p><a class="close" href="#">×</a></div><div class="modal-body"><label for="module">'+ moduleName +'</label><input type="text" id="module" name = "module" value = "'+ mark+'"></div><div class="modal-footer"><a class="btn primary send" href="#">Принять</a><a class="btn secondary" href="#">Отмена</a></div></div>';
       
 		markData = {}
 		markData.id = id;
-		markData.field = $(this).attr('rel');
-		markData.subjId = $('#subject option:selected').val()*1;
+		markData.field = obj.attr('rel');
+		markData.subjId = obj.parent().find('input').val();
 		console.log(markData);
 		$('.modal').remove();
 		$('.content').append(template);
 		$('.send').click(function(e){
 			e.preventDefault();
-			markData.val = $(this).parents('.modal').find('#module').val();
+			markData.val = parseInt($(this).parents('.modal').find('#module').val());
 			$.ajax({
 				url:"<?php echo site_url('frontiers/actions') ?>",
 				type:'POST',
 				data: markData,
 				success: function(msg){
+					console.log(obj.html());
 					obj.html(markData.val);
+					console.log(obj.html());
+					/*obj.parent().find('.summ').html(summOld + parseInt(markData.val));*/
 					$('.modal').remove();
 					$('.content').append('<div class="alert-message success"><a href="#" class="close">×</a><p>'+msg+'</p></div>');
 					close($('.alert-message'),2000);
@@ -95,7 +94,7 @@ jQuery(function(){
 			});
 		});
 		
-	$('a.secondary, .close').click(function(){close($('.modal'))});
+	$('a.secondary, .close').click(function(e){e.preventDefault();close($('.modal'))});
 	});
 	close = function(el,timeOut){
 		el.fadeOut(timeOut,function(){
